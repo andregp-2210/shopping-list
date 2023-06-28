@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { useContext } from "react";
+
+import { AuthUserContext } from "./context/auth-user";
+
+import { UserProfileContextType } from "./types/user-profile";
+import { AuthenticatedApp } from "./authenticated-app";
+import { UnauthenticatedApp } from "./unauthenticated-app";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  const { userProfile } = useContext(AuthUserContext) as UserProfileContextType;
 
+  // const logOut = () => {
+  //   googleLogout();
+  // };
+  if (userProfile.name) {
+    return (
+      <main>
+          <AuthenticatedApp />
+      </main>
+    );
+  }
+  return <UnauthenticatedApp />;
+}
 export default App;
